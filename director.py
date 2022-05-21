@@ -1,4 +1,5 @@
 from terminal_service import TerminalService
+from guess import Guess
 
 class Director:
     """A person who directs the game. 
@@ -20,7 +21,7 @@ class Director:
       
         self._is_playing = True
         self._terminal_service = TerminalService()
-        #self._guess = Guess()
+        self._guess = Guess()
         #self._board = Board()
         
     def start_game(self):
@@ -40,7 +41,7 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        
+        self._guess.set_word()
         
     def _do_updates(self):
         """Keeps watch on where the seeker is moving.
