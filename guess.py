@@ -26,12 +26,21 @@ class Guess:
         self.tries = 4
 
 
-    def show_word(self):
-        """Displays the empty word slots
-        """
-        display = ' '.join(self._display)
-        print(f'The word is: {display}')
+    def set_letter(self, letter):
+        """ method sets the user's input value into self._letter_user attribute"""
+        letter = input("Guess a letter (a-z): ")
+        self._letter_user = letter
 
+
+    def get_letter(self):
+        """method returns the value when someclass needs it"""
+        
+    pass
+
+    def set_word(self):
+        """get the a random word from the word_list"""
+        index = random.randint(0,4)
+        self._select_word = self._word_list[index]
 
     def secret_word(self):
         """Returns secret word to a reusable method.
