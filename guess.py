@@ -24,12 +24,13 @@ class Guess:
 
     def set_letter(self, letter):
         """ method sets the user's input value into self._letter_user attribute"""
+        letter = input("Guess a letter (a-z): ")
+        self._letter_user = letter
 
-    pass
 
     def get_letter(self):
         """method returns the value when someclass needs it"""
-
+        
     pass
 
     def set_word(self):
