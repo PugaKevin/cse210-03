@@ -19,11 +19,14 @@ class Director:
             self (Director): an instance of Director.
         """
       
-        self._is_playing = True
-        self._terminal_service = TerminalService()
         self._guess = Guess()
-        #self._board = Board()
+        self._is_playing = True
+        self._display = Display()
+        self._terminal_service = TerminalService()
         
+
+
+
     def start_game(self):
         """Starts the game by running the main game loop.
         
@@ -35,13 +38,17 @@ class Director:
             self._do_updates()
             self._do_outputs()
 
+
+
+
     def _get_inputs(self):
-        """Moves the seeker to a new location.
+        """Takes user letter guesses.
 
         Args:
             self (Director): An instance of Director.
         """
-        self._guess.set_word()
+        guess = self._terminal_service.write_text('\nEnter in a letter: ')
+        self._guess.check_guess(guess)
         
     def _do_updates(self):
         """Keeps watch on where the seeker is moving.
@@ -52,11 +59,12 @@ class Director:
         
         
     def _do_outputs(self):
-        """Provides a hint for the seeker to use.
+        """Updates display of jumper and word.
 
         Args:
             self (Director): An instance of Director.
         """
-       
-        #if self._hider.is_found():
-            #self._is_playing = False
+        display = self._guess.show_word()
+        self._terminal_service.write_text(display)
+        if self._guess.check_for_win():
+            self._is_playing = False

@@ -1,4 +1,5 @@
 from random import random
+import random
 
 class Guess:
     """control the word and letter the user is guessing  
@@ -10,67 +11,69 @@ class Guess:
         _select_word (string): The word in the current game.
         _letter_user (string): The user's input.
         _letters_guessed(int): A counter to know what index of the word we'll compare
-        _letter_game(string): The letter the user has to guess
+
     """
 
     def __init__(self):
 
         self._word_list = ["apple", "dream", "drama", "enemy", "blind"]
-        self._select_word = ""
+        self._select_word = random.choice(self._word_list)
+        self._display = ' ' * len(self._select_word)
+
         self._letter_user = ""
-        self._letters_gessed = 0
-        self._letter_game = ""
+
+        self._letters_guessed = 0
+        self.tries = 4
 
 
-    def set_letter(self, letter):
-        """ method sets the user's input value into self._letter_user attribute"""
+    def show_word(self):
+        """Displays the empty word slots
+        """
+        display = ' '.join(self._display)
+        print(f'The word is: {display}')
 
-    pass
 
-    def get_letter(self):
-        """method returns the value when someclass needs it"""
-
-    pass
-
-    def set_word(self):
-        """get the a random word from the word_list"""
-        index = random.randint(0,4)
-        self._select_word = self._word_list[index]
-
+    def secret_word(self):
+        """Returns secret word to a reusable method.
+        """
         return self._select_word
+   
 
-    def get_word(self):
-        """method returns the value when someclass needs it"""
-        return self._select_word
+    def get_word_index(self, guess):
+        """Creates indexes for letter in the secretword.
+        """
+        letter_indexes = []
 
-    def get_letterToGuess(self):
-        #A helper array to save the letters of the word guessing. 
-        letter_game = []
-        #The word we are guessing
-        word = self.get_word()
+        word = self.secret_word()
 
-        #Add the letters into the Array
-        for letter in word:
-            letter_game.append(letter)
-        
-        index = self._letters_gessed
+        for index, char in enumerate(list(word)):
+            if char == guess:
+                letter_indexes.append(index)
 
-        self._letter_game = letter_game[index]
-         
-        #clear all elements in the Array
-        letter_game.clear()
+        return letter_indexes
+                
 
-        return self._letter_game
-
-    def comparation(self):
-        is_correct = False
-        self._letter_game = self.get_letterToGuess()
-        user_input = self.get_letter()
+    def comparison(self, index, letter):
+        """Compares and updates the index to the letter.
+        """
+        for number in index:
+            self._display[number] = letter
 
 
+    def check_guess(self, guess):
+        """Checks to makes sure user guess matches letter.
+        """
+        if guess in self.secret_word:
+            index = self.get_word_index(guess)
+            self.comparison(index, guess)
 
-        """ comparate the user's input with
-         the letters in the game"""
 
-        return is_correct
-    pass
+
+    def check_for_win(self):
+        """Check to see if you guessed all the letters correctly.
+        """
+        display = ' '.join(self._display)
+        word = self._select_word
+        if display == word:
+            print('You Win!')
+            return True
