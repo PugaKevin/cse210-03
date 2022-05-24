@@ -1,6 +1,7 @@
 from terminal_service import TerminalService
 from guess import Guess
 
+
 class Director:
     """A person who directs the game. 
     
