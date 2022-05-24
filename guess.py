@@ -26,17 +26,6 @@ class Guess:
         self.tries = 4
 
 
-    def set_letter(self, letter):
-        """ method sets the user's input value into self._letter_user attribute"""
-        letter = input("Guess a letter (a-z): ")
-        self._letter_user = letter
-
-
-    def get_letter(self):
-        """method returns the value when someclass needs it"""
-        
-    pass
-
     def set_word(self):
         """get the a random word from the word_list"""
         index = random.randint(0,4)
