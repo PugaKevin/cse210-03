@@ -27,8 +27,6 @@ class Director:
         self._terminal_service = TerminalService()
         
 
-
-
     def start_game(self):
         """Starts the game by running the main game loop.
         
@@ -41,15 +39,13 @@ class Director:
             self._do_outputs()
 
 
-
-
     def _get_inputs(self):
         """Takes user letter guesses.
 
         Args:
             self (Director): An instance of Director.
         """
-        guess = self._terminal_service.write_text('\nEnter in a letter: ')
+        guess = self._terminal_service.read_text('\nEnter in a letter: ')
         self._guess.check_guess(guess)
         
     def _do_updates(self):
@@ -58,9 +54,15 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
+
+        #win
+        display = self._terminal_service.write_text(self._display.get_displayWord())
         
         
-    def _do_outputs(self):
+        
+        
+        
+    def _do_outputs(self):      
         """Updates display of jumper and word.
 
         Args:

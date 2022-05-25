@@ -6,3 +6,5 @@ for letter in word:
 
 for i in letter_game:
     print(i)
+
+    

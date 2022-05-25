@@ -1,5 +1,7 @@
 from random import random
-import random
+from typing import Counter
+from Display import Display
+
 
 class Guess:
     """control the word and letter the user is guessing  
@@ -16,25 +18,21 @@ class Guess:
 
     def __init__(self):
 
-        self._word_list = ["apple", "dream", "drama", "enemy", "blind"]
-        self._select_word = random.choice(self._word_list)
-        self._display = ' ' * len(self._select_word)
+        self._display = Display()
 
         self._letter_user = ""
 
         self._letters_guessed = 0
-        self.tries = 4
+        self._tries = 0
 
 
-    def set_word(self):
-        """get the a random word from the word_list"""
-        index = random.randint(0,4)
-        self._select_word = self._word_list[index]
+    def set_tries(self, tries):
 
-    def secret_word(self):
-        """Returns secret word to a reusable method.
-        """
-        return self._select_word
+        self._tries = tries
+
+    def get_tries(self):
+
+        return self._tries
    
 
     def get_word_index(self, guess):
@@ -42,36 +40,38 @@ class Guess:
         """
         letter_indexes = []
 
-        word = self.secret_word()
+        word = self._display.get_secret_word()
 
         for index, char in enumerate(list(word)):
             if char == guess:
                 letter_indexes.append(index)
 
         return letter_indexes
-                
 
-    def comparison(self, index, letter):
-        """Compares and updates the index to the letter.
-        """
-        for number in index:
-            self._display[number] = letter
 
 
     def check_guess(self, guess):
         """Checks to makes sure user guess matches letter.
         """
-        if guess in self.secret_word:
+        secretWord = self._display.get_secret_word()
+        
+        if guess in secretWord:
             index = self.get_word_index(guess)
-            self.comparison(index, guess)
+            self._display.update_word(index, guess)
+            
+        else:
+            counter += 1
+            self.set_tries(counter)
+        
 
+        
 
 
     def check_for_win(self):
         """Check to see if you guessed all the letters correctly.
         """
-        display = ' '.join(self._display)
-        word = self._select_word
+        display = ' '.join(self._display.get_displayWord())
+        word = self._display.get_secret_word()
         if display == word:
             print('You Win!')
             return True
