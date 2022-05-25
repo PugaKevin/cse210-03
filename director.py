@@ -1,5 +1,6 @@
 from terminal_service import TerminalService
 from guess import Guess
+from Display import Display
 
 
 class Director:
