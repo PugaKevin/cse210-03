@@ -25,6 +25,9 @@ class Director:
         self._is_playing = True
         self._display = Display()
         self._terminal_service = TerminalService()
+        self.stage_board = 0
+        self._message = ""
+        
         
 
     def start_game(self):
@@ -33,11 +36,21 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
+        
+        tries = self._guess.get_tries()
+        start_board = self._display.display_para(self.stage_board)
+        self._terminal_service.write_text(self._display.get_message(tries, False))
+
+        self._terminal_service.write_text(self._display.get_displayWord())
+        self._terminal_service.write_text(start_board)
+        
+
         while self._is_playing:
             self._get_inputs()
             self._do_updates()
             self._do_outputs()
 
+        
 
     def _get_inputs(self):
         """Takes user letter guesses.
@@ -46,7 +59,8 @@ class Director:
             self (Director): An instance of Director.
         """
         guess = self._terminal_service.read_text('\nEnter in a letter: ')
-        self._guess.check_guess(guess)
+        self._guess.set_userGuess(guess)
+
         
     def _do_updates(self):
         """Keeps watch on where the seeker is moving.
@@ -54,12 +68,18 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
+        secretWord = self._display.get_secret_word()
+        is_guessed = self._guess.check_guess(secretWord)
+        tries = self._guess.get_tries()
+        user_guess = self._guess.get_userGuess()
+        
+
+        self.stage_board = self._display.selector_board(is_guessed, user_guess)
+
+        self._message = self._display.get_message(tries,is_guessed)
 
         #win
-        display = self._terminal_service.write_text(self._display.get_displayWord())
-        
-        
-        
+        #display = self._terminal_service.write_text(self._display.get_displayWord())   
         
         
     def _do_outputs(self):      
@@ -68,7 +88,16 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        display = self._guess.show_word()
-        self._terminal_service.write_text(display)
+
+        display_word = self._display.get_displayWord()
+        self._terminal_service.write_text(display_word)
+
+        display_board = self._display.display_para(self.stage_board)
+        self._terminal_service.write_text(display_board)
+
+        display_message = self._message
+        self._terminal_service.write_text(display_message)
+
+
         if self._guess.check_for_win():
             self._is_playing = False

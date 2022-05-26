@@ -1,6 +1,6 @@
+from operator import index
 from random import random
 from typing import Counter
-from Display import Display
 
 
 class Guess:
@@ -18,60 +18,39 @@ class Guess:
 
     def __init__(self):
 
-        self._display = Display()
 
         self._letter_user = ""
-
-        self._letters_guessed = 0
         self._tries = 0
+        self._is_guessed = False
 
-
-    def set_tries(self, tries):
-
-        self._tries = tries
 
     def get_tries(self):
 
         return self._tries
-   
 
-    def get_word_index(self, guess):
-        """Creates indexes for letter in the secretword.
+    def set_userGuess(self, guess):
+        self._letter_user = guess
+
+    def get_userGuess(self):
+        return self._letter_user
+
+    def check_guess(self, secretWord):
+        """Checks to make sure user's guess matches letter.
         """
-        letter_indexes = []
-
-        word = self._display.get_secret_word()
-
-        for index, char in enumerate(list(word)):
-            if char == guess:
-                letter_indexes.append(index)
-
-        return letter_indexes
-
-
-
-    def check_guess(self, guess):
-        """Checks to makes sure user guess matches letter.
-        """
-        secretWord = self._display.get_secret_word()
-        
-        if guess in secretWord:
-            index = self.get_word_index(guess)
-            self._display.update_word(index, guess)
-            
+        if self._letter_user in secretWord:
+            self._indx = secretWord.index(self._letter_user)
+            self._tries += 1
+            return True
         else:
-            counter += 1
-            self.set_tries(counter)
-        
-
-        
+            self._tries += 1
+            return False  
 
 
     def check_for_win(self):
         """Check to see if you guessed all the letters correctly.
         """
-        display = ' '.join(self._display.get_displayWord())
-        word = self._display.get_secret_word()
-        if display == word:
-            print('You Win!')
+        if self.get_tries() > 5:
             return True
+        else:
+            return False
+
