@@ -10,29 +10,29 @@ class Guess:
     
     Attributes:
         _word_list (List[string]): The list of words the game has (option of words).
-        _select_word (string): The word in the current game.
+        
         _letter_user (string): The user's input.
-        _letters_guessed(int): A counter to know what index of the word we'll compare
+        _is_guessed(int): Whether or not the user has guessed.
 
     """
 
     def __init__(self):
-
-
         self._letter_user = ""
         self._tries = 0
         self._is_guessed = False
 
 
     def get_tries(self):
-
         return self._tries
+
 
     def set_userGuess(self, guess):
         self._letter_user = guess
 
+
     def get_userGuess(self):
         return self._letter_user
+
 
     def check_guess(self, secretWord):
         """Checks to make sure user's guess matches letter.

@@ -78,6 +78,7 @@ class Director:
 
         self._message = self._display.get_message(tries,is_guessed)
 
+        
         #win
         #display = self._terminal_service.write_text(self._display.get_displayWord())   
         

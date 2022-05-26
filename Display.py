@@ -10,36 +10,34 @@ class Display:
     
     Attributes:
         _stages = Save the board for display
-
-        
+        _select_word (string): The word in the current game.
         """
         self._word_list = ["apple", "dream", "drama", "enemy", "blind"]
         self._select_word = random.choice(self._word_list)
         self._display_word = ['_' for i in range(len(self._select_word))]
-        self._mns = "(-.-) Nap time."
+        self._mns = ""
         self.stage = 0
     
     def get_displayWord(self):
-        return self._display_word
+        return ' '.join(self._display_word)
+
 
     def get_message(self, tries, is_guessed):
-
-
         if tries == 0:
-            mns = "Welcome to Jumper Game you have " + str(tries + 4) + " tries"
+            mns = "Welcome to Jumper! You have " + str(tries + 4) + " tries."
         elif is_guessed == False and (tries >= 1 and tries <= 4):
-            mns = "Keep trying you have " + str(4 - tries) + " tries"
+            mns = "Keep trying you have " + str(4 - tries) + " tries left!"
 
         elif is_guessed:
-            mns = "you guessed"
+            mns = "You guessed " + str()
 
         else:
-            mns = "Sorry , You missed tries"
+            mns = "Sorry, please enter a letter."
 
-        
         self._mns = mns
 
         return self._mns
+
 
 
     def get_secret_word(self):
@@ -47,6 +45,7 @@ class Display:
         """
         return self._select_word
     
+
     def selector_board(self, is_guessed, user_guess):
         if is_guessed:
             self.update_boardDisplay(user_guess)
@@ -55,7 +54,6 @@ class Display:
             self.stage += 1
 
         return self.stage
-
 
 
     def update_boardDisplay(self, user_guess):
@@ -68,12 +66,10 @@ class Display:
                 indexes.append(counter)
             counter += 1
 
-        for index in range(len(indexes)):
-            self._display_word.insert(indexes[index], user_guess)
+        for index in indexes:
+            self._display_word[index] = user_guess
 
-        
-        #for number in index:
-           # self._display_word[number] = letter
+
 
     def display_para(self, tracker): 
         stages = ["""
