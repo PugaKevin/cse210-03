@@ -28,3 +28,4 @@ root                   (project root folder)
 * Claudia Madrid
 * Devin Patterson
 * Kevin Puga
+* Jordan Reitz
