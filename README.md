@@ -15,10 +15,10 @@ You can also run the program from an IDE like Visual Studio Code. Start your IDE
 The project files and folders are organized as follows:
 ```
 root                   (project root folder)
-+-- jumper             (source code for the game)
-    +--game            (specific classes)
++-- CSE210-03          (source code for the game)
+    +--cse210-03       (specific classes)
     +--__main__.py     (program entry point)
-+-- README.md            (general info)
++-- README.md          (general info)
 ```
 
 ## Required Technologies
