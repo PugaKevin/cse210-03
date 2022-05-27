@@ -17,19 +17,18 @@ class Display:
         self._display_word = ['_' for i in range(len(self._select_word))]
         self._mns = ""
         self.stage = 0
+
     
     def get_displayWord(self):
         return ' '.join(self._display_word)
 
 
     def get_message(self, tries, is_guessed):
-        if tries == 0:
-            mns = "Welcome to Jumper! You have " + str(tries + 4) + " tries."
-        elif is_guessed == False and (tries >= 1 and tries <= 4):
+        if is_guessed == False and (tries >= 1 and tries <= 4):
             mns = "Keep trying you have " + str(4 - tries) + " tries left!"
 
         elif is_guessed:
-            mns = "You guessed " + str()
+            mns = "You guessed right!"
 
         else:
             mns = "Sorry, please enter a letter."
@@ -73,6 +72,9 @@ class Display:
 
     def display_para(self, tracker): 
         stages = ["""
+        
+
+        
              ___
             /___\\
             \   /
@@ -80,6 +82,7 @@ class Display:
               O
              /|\\
              / \\
+Welcome to Jumper! You have 4 tries.
             """,
             """
              

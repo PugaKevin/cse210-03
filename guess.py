@@ -39,7 +39,6 @@ class Guess:
         """
         if self._letter_user in secretWord:
             self._indx = secretWord.index(self._letter_user)
-            self._tries += 1
             return True
         else:
             self._tries += 1
