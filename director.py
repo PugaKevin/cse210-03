@@ -68,8 +68,8 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        secretWord = self._display.get_secret_word()
-        is_guessed = self._guess.check_guess(secretWord)
+        self._guess.set_secretWord(self._display.get_secret_word())
+        is_guessed = self._guess.check_guessLetter()
         tries = self._guess.get_tries()
         user_guess = self._guess.get_userGuess()
         
@@ -78,7 +78,7 @@ class Director:
 
         self._message = self._display.get_message(tries,is_guessed)
 
-        
+                
         #win
         #display = self._terminal_service.write_text(self._display.get_displayWord())   
         
@@ -100,5 +100,5 @@ class Director:
         self._terminal_service.write_text(display_message)
 
 
-        if self._guess.check_for_win():
+        if self._guess.check_NokeepPlaying(display_word):
             self._is_playing = False

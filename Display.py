@@ -24,11 +24,17 @@ class Display:
 
 
     def get_message(self, tries, is_guessed):
-        if is_guessed == False and (tries >= 1 and tries <= 4):
+        mns = ""
+        if is_guessed == False and (tries >= 1 and tries < 4):
             mns = "Keep trying you have " + str(4 - tries) + " tries left!"
 
         elif is_guessed:
             mns = "You guessed right!"
+        elif tries == 4:
+            mns = "Sorry, you lost all your tries"
+
+        elif tries == 0:
+            mns = "Welcome to Jumper! \n You have 4 tries, Good luck!"
 
         else:
             mns = "Sorry, please enter a letter."
@@ -68,6 +74,7 @@ class Display:
         for index in indexes:
             self._display_word[index] = user_guess
 
+        
 
 
     def display_para(self, tracker): 
@@ -82,7 +89,7 @@ class Display:
               O
              /|\\
              / \\
-Welcome to Jumper! You have 4 tries.
+
             """,
             """
              

@@ -20,7 +20,7 @@ class Guess:
         self._letter_user = ""
         self._tries = 0
         self._is_guessed = False
-
+        self._secret_word = ""
 
     def get_tries(self):
         return self._tries
@@ -29,14 +29,19 @@ class Guess:
     def set_userGuess(self, guess):
         self._letter_user = guess
 
+    def set_secretWord(self, SecretWord):
+        self._secret_word = SecretWord
+
 
     def get_userGuess(self):
         return self._letter_user
 
 
-    def check_guess(self, secretWord):
+    def check_guessLetter(self):
         """Checks to make sure user's guess matches letter.
         """
+        secretWord = self._secret_word
+
         if self._letter_user in secretWord:
             self._indx = secretWord.index(self._letter_user)
             return True
@@ -45,10 +50,12 @@ class Guess:
             return False  
 
 
-    def check_for_win(self):
+    def check_NokeepPlaying(self, displayed_word):
         """Check to see if you guessed all the letters correctly.
         """
-        if self.get_tries() > 5:
+
+
+        if self.get_tries() >= 4 or displayed_word == ' '.join(self._secret_word):
             return True
         else:
             return False
